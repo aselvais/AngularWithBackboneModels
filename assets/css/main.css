@@ -1,0 +1,30 @@
+
+.inputEmpty
+{
+    width: 40px;
+    border: none;
+}
+
+.leftPaneScroller
+{
+    height: 500px;
+    overflow: auto;
+    border-right: 1px solid #dddddd;
+}
+
+.bottomBar
+{
+    padding-top: 20px;
+    border-top: 1px solid #dddddd;
+}
+.msgContentspace
+{
+    max-height: 362px;
+    overflow: auto;
+}
+
+.imgDiv
+{
+    float: right;
+    padding: 10px;
+}

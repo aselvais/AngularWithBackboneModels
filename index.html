@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="webmailApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Steele Models demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="http://documentcloud.github.io/underscore/underscore-min.js"></script>
+    <script src="http://documentcloud.github.io/backbone/backbone-min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+<body ng-controller="IndexController">
+<div class="container">
+    <h2>Angular with Backbone models Demo</h2>
+    <div class="row">
+        <div class="col-md-5 leftPaneScroller">
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>Subject</th>
+                    <th>Value</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="message in emailmessageCollection.models">
+                    <td> <i class="glyphicon glyphicon-paperclip" ng-if="message.get('hasattachments')"/> </td>
+                    <td>{{ message.get('subject') }}</td>
+                    <td><input class="inputEmpty" type="number" ng-model="message.attributes.value"></td>
+                    <td><input type="button" value="select" ng-click="emailmessageCollection.selectMessage(message)" class="btn btn-default btn-xs"></td>
+                    <td><div ng-if="message.get('selected')"><i class="glyphicon glyphicon-hand-left"/></div></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-7" ng-if="emailmessageCollection.getSelected()">
+            <h3>{{ emailmessageCollection.getSelected().get('subject') }} &nbsp;&nbsp; <span class="badge">{{ emailmessageCollection.getSelected().get('value') }}</span>
+            </h3>
+
+            <div><b>From</b>: {{ emailmessageCollection.getSelected().get('from') }}</div>
+            <div><b>To</b>: {{ emailmessageCollection.getSelected().get('to') }}</div>
+            <hr>
+            <div class="msgContentspace">
+                {{ emailmessageCollection.getSelected().get('body') }}
+                <br/>
+                <br/>
+                    <div ng-repeat="emailattachment in emailmessageCollection.getSelected().getAttachments().models">
+                        <hr>
+                        <b>{{ emailattachment.get('filename') }}</b><br/>
+                        <a href="{{ emailattachment.get('filelocation') }}" target="_blank" ng-click="emailattachment.displaySomeMessage()"><img src="{{ emailattachment.get('thumbnaillocation') }}" alt="{{ emailattachment.get('filename') }}"/></a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bottomBar">
+            <b>TOTAL VALUE</b>: {{ emailmessageCollection.totalValue() }}
+            <input type="button" value="Add data" ng-click="emailmessageCollection.initCollection()" class="btn btn-default btn-xs">
+        </div>
+    </div>
+</div>
+</body>
+    <script src="./assets/js/data/data.js"></script>
+    <script src="./assets/js/models/Emailattachment.js"></script>
+    <script src="./assets/js/models/EmailattachmentCollection.js"></script>
+    <script src="./assets/js/models/Emailmessage.js"></script>
+    <script src="./assets/js/models/EmailmessageCollection.js"></script>
+    <script src="assets/js/controllers/IndexController.js"></script>
+</html>
