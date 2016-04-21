@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Steele Models demo</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    <script src="http://documentcloud.github.io/underscore/underscore-min.js"></script>
-    <script src="http://documentcloud.github.io/backbone/backbone-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="./assets/css/main.css">
@@ -27,7 +28,7 @@
                     <td> <i class="glyphicon glyphicon-paperclip" ng-if="message.get('hasattachments')"/> </td>
                     <td>{{ message.get('subject') }}</td>
                     <td><input class="inputEmpty" type="number" ng-model="message.attributes.value"></td>
-                    <td><input type="button" value="select" ng-click="emailmessageCollection.selectMessage(message)" class="btn btn-default btn-xs"></td>
+                    <td><input type="button" value="select" ng-click="selectThisMessage(message)" class="btn btn-default btn-xs"></td>
                     <td><div ng-if="message.get('selected')"><i class="glyphicon glyphicon-hand-left"/></div></td>
                 </tr>
             </table>
@@ -40,7 +41,7 @@
             <div><b>To</b>: {{ emailmessageCollection.getSelected().get('to') }}</div>
             <hr>
             <div class="msgContentspace">
-                {{ emailmessageCollection.getSelected().get('body') }}
+                <div ng-bind-html="htmlBodyMessage"></div>
                 <br/>
                 <br/>
                     <div ng-repeat="emailattachment in emailmessageCollection.getSelected().getAttachments().models">
