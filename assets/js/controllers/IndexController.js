@@ -9,12 +9,13 @@ angular.module('webmailApp', []).controller('IndexController', ['$scope', '$sce'
 	$scope.htmlBody = "";
 	$scope.htmlBodyMessage = "";
 	$scope.emailmessageCollection;
+	$scope.rootEmailmessageCollection;
 
 	// init models
 	var emailmessageCollection = new EmailmessageCollection();
 	emailmessageCollection.initCollection();
 	$scope.emailmessageCollection = emailmessageCollection;
-
+	$scope.rootEmailmessageCollection = emailmessageCollection.search();
 	/**
 	 *
 	 */
