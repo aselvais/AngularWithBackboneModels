@@ -10,6 +10,7 @@ angular.module('webmailApp', []).controller('IndexController', ['$scope', '$sce'
 	$scope.htmlBodyMessage = "";
 	$scope.emailmessageCollection;
 	$scope.rootEmailmessageCollection;
+	$scope.rootSearch;
 
 	// init models
 	var emailmessageCollection = new EmailmessageCollection();
@@ -23,6 +24,14 @@ angular.module('webmailApp', []).controller('IndexController', ['$scope', '$sce'
 	{
 		emailmessageCollection.selectMessage(message);
 		$scope.htmlBodyMessage = $sce.trustAsHtml(emailmessageCollection.getSelected().get('body'));
+	}
+	/**
+	 *
+	 */
+	$scope.addData = function()
+	{
+		$scope.emailmessageCollection.initCollection();
+		$scope.rootEmailmessageCollection = emailmessageCollection.search($scope.rootSearch);
 	}
 
 }]);
